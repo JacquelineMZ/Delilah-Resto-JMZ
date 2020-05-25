@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/JacquelineMZ/Delilah-Resto-JMZ#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sequelize": "^5.21.10"
   }
 }
