@@ -218,8 +218,8 @@ server.post('/producto/crear',(req,res)=>{
     });
 });
 
-//4. POST de adicionar un producto a una orden /productos/adicionar
-server.post('/productos/adicionar/',(req,res)=>{
+//4. POST de adicionar un producto a una orden /producto/adicionar
+server.post('/producto/adicionar/',(req,res)=>{
     const {
         ID_ORDEN,
         ID_PRODUCTO,
@@ -244,7 +244,7 @@ server.post('/productos/adicionar/',(req,res)=>{
     });
 });
 //5. POST para editar productos
-server.post('/usuario/editar',(req,res)=>{
+server.post('/producto/editar',(req,res)=>{
     const {
         ID_PRODUCTO,
         NOMBRE_PRODUCTO,
@@ -263,6 +263,18 @@ server.post('/usuario/editar',(req,res)=>{
         PRECIO:PRECIO, 
         FOTO_PRODUCTO:FOTO_PRODUCTO}
     }
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
+
+//6. DELETE para eliminar un producto
+server.delete('/producto/eliminar/:ID_PRODUCTO',(req,res)=>{
+    const ID_PRODUCTO = req.params.ID_PRODUCTO;
+    sequelize.query('DELETE FROM PRODUCTOS WHERE ID_PRODUCTO =:ID_PRODUCTO', 
+    { replacements: { ID_PRODUCTO:ID_PRODUCTO }}
     ).then(resultados => res.json(resultados)
     ).catch(function (error) {
         res.status(401);
