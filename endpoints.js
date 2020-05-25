@@ -243,6 +243,32 @@ server.post('/productos/adicionar/',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+//5. POST para editar productos
+server.post('/usuario/editar',(req,res)=>{
+    const {
+        ID_PRODUCTO,
+        NOMBRE_PRODUCTO,
+        PRECIO,
+        FOTO_PRODUCTO
+    } = req.body
+    sequelize.query('UPDATE PRODUCTOS \
+        SET \
+        NOMBRE_PRODUCTO=:NOMBRE_PRODUCTO, \
+        PRECIO=:PRECIO, \
+        FOTO_PRODUCTO=:FOTO_PRODUCTO, \
+        WHERE ID_PRODUCTO=:ID_PRODUCTO', 
+    { replacements: { 
+        ID_PRODUCTO:ID_PRODUCTO,
+        NOMBRE_PRODUCTO:NOMBRE_PRODUCTO, 
+        PRECIO:PRECIO, 
+        FOTO_PRODUCTO:FOTO_PRODUCTO}
+    }
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
 
 server.listen(3000,()=>{
     console.log("Server corriendo");
