@@ -7,8 +7,9 @@ const firma = "Jacqui-Delilah-Resto-LfdgfAsKsdhJsfhFsfGjhNFshthD34jt9N90GKaJbLkj
 
 server.use(express.json());
 //Endpoints 
-
-///////////             USUARIO             ///////////
+//////////////////////////////////////////////////////
+///////////             USUARIO             //////////
+//////////////////////////////////////////////////////
 
 //1. GET un solo usuario Swagger /usuario/listaruno/ Parametro ID_USUARIO
 server.get('/usuario/listaruno/:ID_USUARIO',(req,res)=>{
@@ -166,8 +167,9 @@ server.delete('/usuario/eliminar/:ID_USUARIO',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
-
-///////////             USUARIO             ///////////
+//////////////////////////////////////////////////////
+///////////             PRODUCTO             /////////
+//////////////////////////////////////////////////////
 
 //1. GET un solo producto Swagger /producto/listauno/ Parametro ID_PRODUCTO
 server.get('/producto/listauno/:ID_PRODUCTO',(req,res)=>{
@@ -275,6 +277,21 @@ server.delete('/producto/eliminar/:ID_PRODUCTO',(req,res)=>{
     const ID_PRODUCTO = req.params.ID_PRODUCTO;
     sequelize.query('DELETE FROM PRODUCTOS WHERE ID_PRODUCTO =:ID_PRODUCTO', 
     { replacements: { ID_PRODUCTO:ID_PRODUCTO }}
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
+//////////////////////////////////////////////////////
+///////////      PEDIDO  / ORDENES         ///////////
+//////////////////////////////////////////////////////
+
+//1. GET un solo pedido/orden Swagger /pedido/listaruno/ Parametro ID_ORDEN
+server.get('/pedido/listaruno/:ID_ORDEN',(req,res)=>{
+    const ID_ORDEN = req.params.ID_ORDEN;
+    sequelize.query('SELECT * FROM ORDENES where ID_ORDEN = :ID_ORDEN limit 1', 
+    { replacements: {ID_ORDEN: ID_ORDEN}, type: sequelize.QueryTypes.SELECT }
     ).then(resultados => res.json(resultados)
     ).catch(function (error) {
         res.status(401);
