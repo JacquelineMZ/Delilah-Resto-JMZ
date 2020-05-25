@@ -7,6 +7,9 @@ const firma = "Jacqui-Delilah-Resto-LfdgfAsKsdhJsfhFsfGjhNFshthD34jt9N90GKaJbLkj
 
 server.use(express.json());
 //Endpoints 
+
+///////////             USUARIO             ///////////
+
 //1. GET un solo usuario Swagger /usuario/listauno/ Parametro idfiltro
 server.get('/usuario/listauno/:ID_USUARIO',(req,res)=>{
     const ID_USUARIO = req.params.ID_USUARIO;
@@ -18,6 +21,7 @@ server.get('/usuario/listauno/:ID_USUARIO',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+
 //2. GET un todos los usuarios Swagger /usuario/listatodos/
 server.get('/usuario/listatodos/',(req,res)=>{
     const filtro = req.params.idfiltro;
@@ -29,6 +33,7 @@ server.get('/usuario/listatodos/',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+
 //3. POST de registro usuario /usuario/registrar
 server.post('/usuario/registrar',(req,res)=>{
     const {
@@ -74,6 +79,7 @@ server.post('/usuario/registrar',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+
 //4. POST para verificar si un usuario existe LOGIN y crear un token
 server.post('/usuario/login', async function (req,res){
     console.log('calling');
@@ -108,6 +114,7 @@ function validarUsuarioContrasena(USUARIOF,CONTRASENA_USUARIOF){
         });
     });
 }
+
 //5. POST para editar usuarios
 server.post('/usuario/editar',(req,res)=>{
     const {
@@ -148,6 +155,7 @@ server.post('/usuario/editar',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+
 //6. DELETE para eliminar un usuario
 server.delete('/usuario/eliminar/:ID_USUARIO',(req,res)=>{
     const ID_USUARIO = req.params.ID_USUARIO;
@@ -160,6 +168,19 @@ server.delete('/usuario/eliminar/:ID_USUARIO',(req,res)=>{
     });
 });
 
+///////////             USUARIO             ///////////
+
+//1. GET un solo usuario Swagger /usuario/listauno/ Parametro idfiltro
+server.get('/producto/listauno/:ID_PRODUCTO',(req,res)=>{
+    const ID_PRODUCTO = req.params.ID_PRODUCTO;
+    sequelize.query('SELECT * FROM PRODUCTOS where ID_PRODUCTO = :ID_PRODUCTO limit 1', 
+    { replacements: {ID_PRODUCTO: ID_PRODUCTO}, type: sequelize.QueryTypes.SELECT }
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
 
 server.listen(3000,()=>{
     console.log("Server corriendo");
