@@ -309,6 +309,37 @@ server.get('/pedido/listartodos/',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+
+//3. POST para editar/actualizar pedidos/ordenes
+server.post('/pedido/actualizar',(req,res)=>{
+    const {
+        ID_ORDEN,
+        ID_USUARIO,
+        ID_ESTADOS,
+        FECHA,
+        DESCRIPCION,
+        PRECIO_TOTAL
+    } = req.body
+    sequelize.query('UPDATE ORDENES \
+        SET \
+        ID_USUARIO=:ID_USUARIO, \
+        ID_ESTADOS=:ID_ESTADOS, \
+        FECHA=:FECHA, \
+        DESCRIPCION=:DESCRIPCION,\
+        PRECIO_TOTAL=:PRECIO_TOTAL\
+        WHERE ID_ORDEN=:ID_ORDEN', 
+    { replacements: { 
+        ID_PRODUCTO:ID_PRODUCTO,
+        NOMBRE_PRODUCTO:NOMBRE_PRODUCTO, 
+        PRECIO:PRECIO, 
+        FOTO_PRODUCTO:FOTO_PRODUCTO}
+    }
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
 server.listen(3000,()=>{
     console.log("Server corriendo");
 });
