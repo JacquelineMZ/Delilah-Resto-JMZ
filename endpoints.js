@@ -200,9 +200,9 @@ server.post('/producto/crear',(req,res)=>{
         FOTO_PRODUCTO
     } = req.body
     sequelize.query('INSERT INTO PRODUCTOS (\
-        NOMBRE_PRODUCTO,\
-        PRECIO,\
-        FOTO_PRODUCTO\
+            NOMBRE_PRODUCTO,\
+            PRECIO,\
+            FOTO_PRODUCTO\
         )VALUES (\
             :NOMBRE_PRODUCTO, \
             :PRECIO, \
@@ -211,6 +211,32 @@ server.post('/producto/crear',(req,res)=>{
         NOMBRE_PRODUCTO:NOMBRE_PRODUCTO, 
         PRECIO:PRECIO, 
         FOTO_PRODUCTO:FOTO_PRODUCTO,}}
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
+
+//4. POST de adicionar un producto a una orden /productos/adicionar
+server.post('/productos/adicionar/',(req,res)=>{
+    const {
+        ID_ORDEN,
+        ID_PRODUCTO,
+        CANTIDAD_PRODUCTO
+    } = req.body
+    sequelize.query('INSERT INTO PRODUCTO_ORDENES (\
+            ID_PRODUCTO,\
+            ID_ORDEN,\
+            CANTIDAD_PRODUCTO\
+        )VALUES (\
+            :ID_PRODUCTO, \
+            :ID_ORDEN, \
+            :CANTIDAD_PRODUCTO)', 
+    { replacements: { 
+        ID_PRODUCTO:ID_PRODUCTO, 
+        ID_ORDEN:ID_ORDEN, 
+        CANTIDAD_PRODUCTO:CANTIDAD_PRODUCTO,}}
     ).then(resultados => res.json(resultados)
     ).catch(function (error) {
         res.status(401);
