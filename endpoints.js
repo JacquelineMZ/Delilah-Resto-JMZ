@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const server = express();
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('mysql://root@localhost:3307/delilah_resto');
+const firma = "Jacqui-Delilah-Resto-LfdgfAsKsdhJsfhFsfGjhNFshthD34jt9N90GKaJbLkjFD"; 
 
 server.use(express.json());
 //Endpoints 
@@ -77,52 +78,44 @@ server.post('/usuario/registrar',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
-// {
-// 	"ID_USUARIO":"3",
-// 	"USUARIO":"CRIS",
-// 	"CONTRASENA_USUARIO":"1234",
-// 	"NOMBRES":"Cristian",
-// 	"APELLIDOS":"Vega",
-// 	"CORREO":"cristian.vega@gmail.com",
-// 	"DIRECCION":"calle verdadera 123",
-// 	"CELULAR":"3204777515",
-// 	"ID_ROL":"1"
-// }
 
-server.post('/usuario/login',(req,res)=>{
+
+server.post('/usuario/login', async function (req,res){
+    console.log('calling');
     const {USUARIO,CONTRASENA_USUARIO} = req.body;
-    const validado = validarUsuarioContrasena(USUARIO,CONTRASENA_USUARIO);
+    const validado = await validarUsuarioContrasena(USUARIO,CONTRASENA_USUARIO);
+    console.log(validado);
     if(!validado){
         res.status(401);
         res.json({error:'Usuario o contraseña erroneos'});
         return;
     }
-    const token = jwt.sign({usuario},firma);
-    // console.log(usuario);
+    const token = jwt.sign({USUARIO},firma);
     res.json({token});
     console.log(token);
 });
 
-async function validarUsuarioContrasena(USUARIOF,CONTRASENA_USUARIOF){
-    var respuesta;
-    sequelize.query('SELECT * FROM USUARIOS WHERE USUARIO=:USUARIO AND CONTRASENA_USUARIO=:CONTRASENA_USUARIO', 
-    { replacements: { 
-        USUARIO:USUARIOF, 
-        CONTRASENA_USUARIO:CONTRASENA_USUARIOF }
-    , type: sequelize.QueryTypes.SELECT }
-    ).then( function (resultados){
-        if(resultados[0].ID_USUARIO != undefined)
-        respuesta = true;
-        else 
-        respuesta = false;
-    }).catch(function (error) {
-        respuesta = false;
+function validarUsuarioContrasena(USUARIOF,CONTRASENA_USUARIOF){
+    return new Promise(resolve =>{
+        sequelize.query('SELECT * FROM USUARIOS WHERE USUARIO=:USUARIO AND CONTRASENA_USUARIO=:CONTRASENA_USUARIO', 
+        { replacements: { 
+            USUARIO:USUARIOF, 
+            CONTRASENA_USUARIO:CONTRASENA_USUARIOF }
+        , type: sequelize.QueryTypes.SELECT }
+        ).then( function (resultados){
+            console.log(resultados);
+            if(resultados[0].ID_USUARIO != '')
+                resolve(true);
+            else 
+                resolve(false);
+        }).catch(function (error) {
+                resolve(false);
+        });
     });
-    return respuesta;
 }
 // {
-// 	"USUARIO":"CRIS",
-// 	"CONTRASENA_USUARIO":"1234"
+// 	"USUARIO":"JACQUI",
+// 	"CONTRASENA_USUARIO":"12345"
 // }
 
 
