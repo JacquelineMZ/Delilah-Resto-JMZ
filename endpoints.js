@@ -32,7 +32,6 @@ server.get('/usuario/listatodos/',(req,res)=>{
 //POST de registro usuario /usuario/registrar
 server.post('/usuario/registrar',(req,res)=>{
     const {
-        ID_USUARIO,
         USUARIO,
         CONTRASENA_USUARIO,
         NOMBRES,
@@ -43,7 +42,6 @@ server.post('/usuario/registrar',(req,res)=>{
         ID_ROL
     } = req.body
     sequelize.query('INSERT INTO USUARIOS (\
-            ID_USUARIO,\
             USUARIO,\
             CONTRASENA_USUARIO,\
             NOMBRES,\
@@ -53,7 +51,6 @@ server.post('/usuario/registrar',(req,res)=>{
             CELULAR,\
             ID_ROL\
         )VALUES (\
-            :ID_USUARIO, \
             :USUARIO, \
             :CONTRASENA_USUARIO, \
             :NOMBRES, \
@@ -63,7 +60,6 @@ server.post('/usuario/registrar',(req,res)=>{
             :CELULAR, \
             :ID_ROL)', 
     { replacements: { 
-        ID_USUARIO:ID_USUARIO, 
         USUARIO:USUARIO, 
         CONTRASENA_USUARIO:CONTRASENA_USUARIO, 
         NOMBRES:NOMBRES, 
@@ -78,8 +74,7 @@ server.post('/usuario/registrar',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
-
-
+//POST para verificar si un usuario existe LOGIN y crear un token
 server.post('/usuario/login', async function (req,res){
     console.log('calling');
     const {USUARIO,CONTRASENA_USUARIO} = req.body;
@@ -113,11 +108,52 @@ function validarUsuarioContrasena(USUARIOF,CONTRASENA_USUARIOF){
         });
     });
 }
+
 // {
 // 	"USUARIO":"JACQUI",
 // 	"CONTRASENA_USUARIO":"12345"
 // }
 
+// POST para editar usuarios
+server.post('/usuario/editar',(req,res)=>{
+    const {
+        ID_USUARIO,
+        USUARIO,
+        CONTRASENA_USUARIO,
+        NOMBRES,
+        APELLIDOS,
+        CORREO,
+        DIRECCION,
+        CELULAR,
+        ID_ROL
+    } = req.body
+    sequelize.query('UPDATE USUARIOS \
+        SET \
+            USUARIO=:USUARIO, \
+            CONTRASENA_USUARIO=:CONTRASENA_USUARIO, \
+            NOMBRES=:NOMBRES, \
+            APELLIDOS=:APELLIDOS, \
+            CORREO=:CORREO, \
+            DIRECCION=:DIRECCION, \
+            CELULAR=:CELULAR, \
+            ID_ROL=:ID_ROL\
+        WHERE ID_USUARIO=:ID_USUARIO', 
+    { replacements: { 
+        ID_USUARIO:ID_USUARIO,
+        USUARIO:USUARIO, 
+        CONTRASENA_USUARIO:CONTRASENA_USUARIO, 
+        NOMBRES:NOMBRES, 
+        APELLIDOS:APELLIDOS,
+        CORREO:CORREO,
+        DIRECCION:DIRECCION,
+        CELULAR:CELULAR,
+        ID_ROL:ID_ROL,}}
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
 
 server.listen(3000,()=>{
     console.log("Server corriendo");
