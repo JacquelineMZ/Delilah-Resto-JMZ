@@ -7,18 +7,18 @@ const firma = "Jacqui-Delilah-Resto-LfdgfAsKsdhJsfhFsfGjhNFshthD34jt9N90GKaJbLkj
 
 server.use(express.json());
 //Endpoints 
-// GET un solo usuario Swagger /usuario/listauno/ Parametro idfiltro
-server.get('/usuario/listauno/:idfiltro',(req,res)=>{
-    const filtro = req.params.idfiltro;
-    sequelize.query('SELECT * FROM USUARIOS where ID_USUARIO = :filtro limit 1', 
-    { replacements: {filtro: filtro}, type: sequelize.QueryTypes.SELECT }
+//1. GET un solo usuario Swagger /usuario/listauno/ Parametro idfiltro
+server.get('/usuario/listauno/:ID_USUARIO',(req,res)=>{
+    const ID_USUARIO = req.params.ID_USUARIO;
+    sequelize.query('SELECT * FROM USUARIOS where ID_USUARIO = :ID_USUARIO limit 1', 
+    { replacements: {ID_USUARIO: ID_USUARIO}, type: sequelize.QueryTypes.SELECT }
     ).then(resultados => res.json(resultados)
     ).catch(function (error) {
         res.status(401);
         res.json({error_presentado:error});
     });
 });
-// GET un todos los usuarios Swagger /usuario/listatodos/
+//2. GET un todos los usuarios Swagger /usuario/listatodos/
 server.get('/usuario/listatodos/',(req,res)=>{
     const filtro = req.params.idfiltro;
     sequelize.query('SELECT * FROM USUARIOS', 
@@ -29,7 +29,7 @@ server.get('/usuario/listatodos/',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
-//POST de registro usuario /usuario/registrar
+//3. POST de registro usuario /usuario/registrar
 server.post('/usuario/registrar',(req,res)=>{
     const {
         USUARIO,
@@ -74,7 +74,7 @@ server.post('/usuario/registrar',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
-//POST para verificar si un usuario existe LOGIN y crear un token
+//4. POST para verificar si un usuario existe LOGIN y crear un token
 server.post('/usuario/login', async function (req,res){
     console.log('calling');
     const {USUARIO,CONTRASENA_USUARIO} = req.body;
@@ -89,7 +89,7 @@ server.post('/usuario/login', async function (req,res){
     res.json({token});
     console.log(token);
 });
-
+// Funcion conectada al POST de login
 function validarUsuarioContrasena(USUARIOF,CONTRASENA_USUARIOF){
     return new Promise(resolve =>{
         sequelize.query('SELECT * FROM USUARIOS WHERE USUARIO=:USUARIO AND CONTRASENA_USUARIO=:CONTRASENA_USUARIO', 
@@ -108,13 +108,7 @@ function validarUsuarioContrasena(USUARIOF,CONTRASENA_USUARIOF){
         });
     });
 }
-
-// {
-// 	"USUARIO":"JACQUI",
-// 	"CONTRASENA_USUARIO":"12345"
-// }
-
-// POST para editar usuarios
+//5. POST para editar usuarios
 server.post('/usuario/editar',(req,res)=>{
     const {
         ID_USUARIO,
@@ -154,6 +148,18 @@ server.post('/usuario/editar',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+//6. DELETE para eliminar un usuario
+server.delete('/usuario/eliminar/:ID_USUARIO',(req,res)=>{
+    const ID_USUARIO = req.params.ID_USUARIO;
+    sequelize.query('DELETE FROM USUARIOS WHERE ID_USUARIO =:ID_USUARIO', 
+    { replacements: { ID_USUARIO:ID_USUARIO }}
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
+
 
 server.listen(3000,()=>{
     console.log("Server corriendo");
