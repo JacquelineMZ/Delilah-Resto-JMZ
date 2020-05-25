@@ -299,6 +299,16 @@ server.get('/pedido/listaruno/:ID_ORDEN',(req,res)=>{
     });
 });
 
+//2. GET un todos los pedidos/ordenes Swagger /pedido/listartodos/
+server.get('/pedido/listartodos/',(req,res)=>{
+    sequelize.query('SELECT * FROM ORDENES', 
+    { type: sequelize.QueryTypes.SELECT }
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
 server.listen(3000,()=>{
     console.log("Server corriendo");
 });
