@@ -192,6 +192,32 @@ server.get('/producto/listartodos/',(req,res)=>{
     });
 });
 
+//3. POST de registro usuario /producto/crear
+server.post('/producto/crear',(req,res)=>{
+    const {
+        NOMBRE_PRODUCTO,
+        PRECIO,
+        FOTO_PRODUCTO
+    } = req.body
+    sequelize.query('INSERT INTO PRODUCTOS (\
+        NOMBRE_PRODUCTO,\
+        PRECIO,\
+        FOTO_PRODUCTO\
+        )VALUES (\
+            :NOMBRE_PRODUCTO, \
+            :PRECIO, \
+            :FOTO_PRODUCTO)', 
+    { replacements: { 
+        NOMBRE_PRODUCTO:NOMBRE_PRODUCTO, 
+        PRECIO:PRECIO, 
+        FOTO_PRODUCTO:FOTO_PRODUCTO,}}
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
+
 server.listen(3000,()=>{
     console.log("Server corriendo");
 });
