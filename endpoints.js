@@ -10,8 +10,8 @@ server.use(express.json());
 
 ///////////             USUARIO             ///////////
 
-//1. GET un solo usuario Swagger /usuario/listauno/ Parametro idfiltro
-server.get('/usuario/listauno/:ID_USUARIO',(req,res)=>{
+//1. GET un solo usuario Swagger /usuario/listaruno/ Parametro ID_USUARIO
+server.get('/usuario/listaruno/:ID_USUARIO',(req,res)=>{
     const ID_USUARIO = req.params.ID_USUARIO;
     sequelize.query('SELECT * FROM USUARIOS where ID_USUARIO = :ID_USUARIO limit 1', 
     { replacements: {ID_USUARIO: ID_USUARIO}, type: sequelize.QueryTypes.SELECT }
@@ -22,9 +22,8 @@ server.get('/usuario/listauno/:ID_USUARIO',(req,res)=>{
     });
 });
 
-//2. GET un todos los usuarios Swagger /usuario/listatodos/
-server.get('/usuario/listatodos/',(req,res)=>{
-    const filtro = req.params.idfiltro;
+//2. GET un todos los usuarios Swagger /usuario/listartodos/
+server.get('/usuario/listartodos/',(req,res)=>{
     sequelize.query('SELECT * FROM USUARIOS', 
     { type: sequelize.QueryTypes.SELECT }
     ).then(resultados => res.json(resultados)
@@ -170,11 +169,22 @@ server.delete('/usuario/eliminar/:ID_USUARIO',(req,res)=>{
 
 ///////////             USUARIO             ///////////
 
-//1. GET un solo usuario Swagger /usuario/listauno/ Parametro idfiltro
+//1. GET un solo producto Swagger /producto/listauno/ Parametro ID_PRODUCTO
 server.get('/producto/listauno/:ID_PRODUCTO',(req,res)=>{
     const ID_PRODUCTO = req.params.ID_PRODUCTO;
     sequelize.query('SELECT * FROM PRODUCTOS where ID_PRODUCTO = :ID_PRODUCTO limit 1', 
     { replacements: {ID_PRODUCTO: ID_PRODUCTO}, type: sequelize.QueryTypes.SELECT }
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
+
+//2. GET un todos los productos Swagger /producto/listartodos/
+server.get('/producto/listartodos/',(req,res)=>{
+    sequelize.query('SELECT * FROM PRODUCTOS', 
+    { type: sequelize.QueryTypes.SELECT }
     ).then(resultados => res.json(resultados)
     ).catch(function (error) {
         res.status(401);
