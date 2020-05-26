@@ -340,6 +340,40 @@ server.post('/pedido/actualizar',(req,res)=>{
         res.json({error_presentado:error});
     });
 });
+
+//4. POST de crear un pedido/orden 
+server.post('/pedido/orden/',(req,res)=>{
+    const {
+        ID_USUARIO,
+        ID_ESTADOS,
+        FECHA,
+        DESCRIPCION,
+        PRECIO_TOTAL
+    } = req.body
+    sequelize.query('INSERT INTO ORDENES (\
+            ID_USUARIO,\
+            ID_ESTADOS,\
+            FECHA,\
+            DESCRIPCION,\
+            PRECIO_TOTAL\
+        )VALUES (\
+            :ID_USUARIO, \
+            :ID_ESTADOS, \
+            :FECHA, \
+            :DESCRIPCION, \
+            :PRECIO_TOTAL)', 
+    { replacements: { 
+        ID_USUARIO:ID_USUARIO, 
+        ID_ESTADOS:ID_ESTADOS, 
+        FECHA:FECHA,
+        DESCRIPCION:DESCRIPCION,
+        PRECIO_TOTAL:PRECIO_TOTAL}}
+    ).then(resultados => res.json(resultados)
+    ).catch(function (error) {
+        res.status(401);
+        res.json({error_presentado:error});
+    });
+});
 server.listen(3000,()=>{
     console.log("Server corriendo");
 });
