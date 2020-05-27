@@ -3,6 +3,11 @@ const jwt = require('jsonwebtoken');
 const server = express();
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('mysql://root@localhost:3307/delilah_resto');
+// const sequelize = new Sequelize('delilah_resto', 'root', '12345', {
+//     host: 'localhost',
+//     dialect: 'mysql',
+//     port:'3307'
+//   });
 const firma = "Jacqui-Delilah-Resto-LfdgfAsKsdhJsfhFsfGjhNFshthD34jt9N90GKaJbLkjFD"; 
 
 server.use(express.json());

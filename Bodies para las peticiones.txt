@@ -1,0 +1,57 @@
+///////////////////////////////////////////
+//////// 	USUARIO		///////////
+///////////////////////////////////////////
+
+localhost:3000/usuario/login
+
+{
+	"USUARIO":"CRIS",
+	"CONTRASENA_USUARIO":"1234"
+}
+
+localhost:3000/usuario/registrar
+
+{
+	"USUARIO":"JACQUI",
+	"CONTRASENA_USUARIO":"2468",
+	"NOMBRES":"Jacqueline",
+	"APELLIDOS":"Mendez",
+	"CORREO":"jacqueline.mndez@gmail.com",
+	"DIRECCION":"calle verdadera 123",
+	"CELULAR":"3192065788",
+	"ID_ROL":"1"
+}
+
+localhost:3000/usuario/editar
+
+{
+	"ID_USUARIO":"0",
+	"USUARIO":"JACQUI",
+	"CONTRASENA_USUARIO":"36912",
+	"NOMBRES":"Jacqueline",
+	"APELLIDOS":"Mendez",
+	"CORREO":"jacqueline.mndez@gmail.com",
+	"DIRECCION":"calle verdadera 123",
+	"CELULAR":"3192065788",
+	"ID_ROL":"1"
+}
+
+localhost:3000/usuario/eliminar/3
+
+localhost:3000/usuario/listaruno/0
+
+localhost:3000/usuario/listartodos
+
+///////////////////////////////////////////
+//////// 	PRODUCTO	///////////
+///////////////////////////////////////////
+
+localhost:3000/producto/crear
+
+{
+	"NOMBRE_PRODUCTO":"Cereza",
+	"PRECIO":"100000",
+	"FOTO_PRODUCTO":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxATERUQExIWFRAXGRcaGBYXFRUXFRUXGBYXFxUWFRcYHSggGB0lGxYXITEiJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGzAlICYtKysvLy0tLS0tNS8tLS0tLy8vLS0tLS0tLS4tLS0tLS0tNS0tLS0vLS0tLS0vLS0tLf/AABEIAL0BCwMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABQEDBAYHAgj/xAA/EAABAwIDBQUFBQcDBQAAAAABAAIDBBEFITEGEkFRYRMicYGRBzJCobEUUsHR8BUjM2JyguEkkrIWQ2Oi8f/EABoBAQADAQEBAAAAAAAAAAAAAAABAwQCBQb/xAArEQACAgEEAQMCBgMAAAAAAAAAAQIRAwQSITFBEyJRkbEUMmFxofBCgdH/2gAMAwEAAhEDEQA/AO4oiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCLEjxGJ0pgDwZWgOLb52JtdZahOyWmuwiIpICIiAIiIAiIgCIqIAiqiAoiqiAoiqiAoiqiAoiqiAoiqiAoiqiAKiqiAoiqiAKiqiAotU2u2hdC1zGZNLcpATdrrjhb3bcb81sGKzFsRI1yGttVznF3SVW9FubhBtk73gBvOJGYFgMuOR0WPU59jUUa9NjT98ukXTX07nCUOaXZO7hFt4jS4zNjcZ9VveI41BTsD5ZALgeJvxA5ddFpNJsoz7PBI3tBdxBu8mzCLNcQTbItyAt76rtThDppIoppbwjdDb7m8bkB3us1sBqbZ6KjDL0W033VF03DNX6WbpgGOQVkXbQO3mXLT0I4HysfMKSVump2RtDGNDGDINaAAB0AV1emjz3V8FEVUQgoiqiAoiqiAoiqiAIiIAiIgCIiAIiIAiIgCIiAIiIAi8GVvMeoXgVcZNt9t"
+}
+
+localhost:3000/producto/listartodos
