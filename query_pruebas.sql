@@ -57,6 +57,8 @@ CREATE TABLE PRODUCTO_ORDENES (
 INSERT INTO `PRODUCTOS` VALUES (1,'Key Lime Pie',250,'[https://www.themealdb.com/images/media/meals/qpqtuu1511386216.jpg]'),(2,'Recheado Masala Fish',480,'[https://www.themealdb.com/images/media/meals/uwxusv1487344500.jpg]'),(3,'Kentucky Fried Chicken',320,'[https://www.themealdb.com/images/media/meals/xqusqy1487348868.jpg]'),(4,'Duck Confit',390,'[https://www.themealdb.com/images/media/meals/wvpvsu1511786158.jpg]'),(5,'Apple Tarts',230,'[https://www.themealdb.com/images/media/meals/qtqwwu1511792650.jpg]'),(6,'Salmon Prawn Risotto',500,'[https://www.themealdb.com/images/media/meals/xxrxux1503070723.jpg]'),(7,'Three-cheese souffles',270,'[https://www.themealdb.com/images/media/meals/sxwquu1511793428.jpg]'),(8,'Spaghetti Bolognese',290,'[https://www.themealdb.com/images/media/meals/sutysw1468247559.jpg]'),(9,'BBQ Pork Burger',360,'[https://www.themealdb.com/images/media/meals/atd5sh1583188467.jpg]'),(10,'Tandoori chicken',430,'[https://www.themealdb.com/images/media/meals/qptpvt1487339892.jpg]');
 -- Listar Productos
 SELECT * FROM PRODUCTOS;
+-- Listar usuarios
+SELECT * FROM USUARIOS;
 
 
 /*Queries adicionales INSERCION DE REGISTRO, SELECCION, ALTERACION DE TABLA, ELIMINACION DE REGISTRO*/
