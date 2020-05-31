@@ -15,14 +15,14 @@ Funcionalidades:
 
 ## Especificaciones del OPEN API 
 
-- [Open API Docs](/DocSwagger.yml)
+- [Open API Docs](/Documentacion.yml)
 
 ## Para empezar
 
 ### Clonar el repositorio:
 
 ```
-$ git clone https://github.com/JacquelineMZ/Delilah-Resto-JMZ/
+$ git clone https://github.com/JacquelineMZ/Delilah-Resto-JMZ.git
 ```
 o  descargar desde Github
 
@@ -44,10 +44,11 @@ o  descargar desde Github
 
 Esto creará el esquema de la base de datos, las tablas
 
+
 En caso de que hayan problemas verificar
 1. El host de la base de datos y el puerto al que debe conectarse la API ( puerto 3306 )
 2. Nombre de la base de datos.
 3. Usuario y contraseña de la base de datos para conectarse en caso de que tenga (user:root pw:123456)
 
 ## Ejecuta la API
-
+*En caso de necesitarse se  tiene el archivo	"Bodies para las peticiones" para tener el formato de hacer peticiones
