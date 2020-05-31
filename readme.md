@@ -38,8 +38,6 @@ Esto nos creará un esquema de base de datos llamado delilah-resto, posteriormen
 Luego de que tengamos la base de datos con el esquema y los datos iniciales insertados, procedemos a ejecutar el comando** npx nodemon endpoints.js** para levantar el servidor.
 
 Finalmente abrimos postman y hacemos peticiones a los endpoins documentados en Swagger con los bodies que se encuentran en el documento Bodies para las peticiones. Y esperamos las respuestas.
-
-
-[1]: https://nodejs.org/es/download/
-[2]: https://github.com/JacquelineMZ/Delilah-Resto-JMZ
-[3]: https://www.mysql.com/products/workbench/
+1: https://nodejs.org/es/download/
+2: https://github.com/JacquelineMZ/Delilah-Resto-JMZ
+3: https://www.mysql.com/products/workbench/
