@@ -3,12 +3,11 @@ const jwt = require('jsonwebtoken');
 const server = express();
 const Sequelize = require('sequelize');
 const config = require('./config')
-const sequelize = new Sequelize('mysql://root@localhost:3307/delilah_resto');
-// const sequelize = new Sequelize(config.conf_db_name, config.conf_user, config.conf_password, {
-//     host: config.host,
-//     dialect: config.conf_dialect,
-//     port: config.conf_port
-//   });
+const sequelize = new Sequelize(config.conf_db_name, config.conf_user, config.conf_password, {
+host: config.host,
+dialect: config.conf_dialect,
+port: config.conf_port
+});
 var firma='';
 
 server.use(express.json());
@@ -54,7 +53,7 @@ AutenticarTokenUsuario.use((req, res, next) => {
     }
  });
  const AutenticarTokenTodos = express.Router(); 
- AutenticarTokenAdministrador.use((req, res, next) => {
+ AutenticarTokenTodos.use((req, res, next) => {
     const token = req.headers['token_accion'];
 	console.log(token);
     if (token) {
